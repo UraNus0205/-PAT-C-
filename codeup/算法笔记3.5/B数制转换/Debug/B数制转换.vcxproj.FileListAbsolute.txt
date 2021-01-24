@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记3.5\B数制转换\Debug\B数制转换.exe
+E:\PAT\codeup\算法笔记3.5\B数制转换\Debug\B数制转换.pdb

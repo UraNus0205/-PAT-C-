@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记3.6\I【字符串】回文串\Debug\I【字符串】回文串.exe
+E:\PAT\codeup\算法笔记3.6\I【字符串】回文串\Debug\I【字符串】回文串.pdb

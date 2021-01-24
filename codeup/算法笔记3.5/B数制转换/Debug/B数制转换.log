@@ -1,0 +1,13 @@
+﻿  B数制转换.cpp
+E:\PAT\codeup\算法笔记3.5\B数制转换\B数制转换.cpp(13,21): warning C4018: “<”: 有符号/无符号不匹配
+E:\PAT\codeup\算法笔记3.5\B数制转换\B数制转换.cpp(22,44): warning C4244: “参数”: 从“long”转换到“const _Elem”，可能丢失数据
+          with
+          [
+              _Elem=char
+          ]
+E:\PAT\codeup\算法笔记3.5\B数制转换\B数制转换.cpp(23,24): warning C4244: “参数”: 从“long”转换到“const _Elem”，可能丢失数据
+          with
+          [
+              _Elem=char
+          ]
+  B数制转换.vcxproj -> E:\PAT\codeup\算法笔记3.5\B数制转换\Debug\B数制转换.exe

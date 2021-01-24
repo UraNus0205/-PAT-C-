@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记3.6\C字符串的查找删除\Debug\C字符串的查找删除.exe
+E:\PAT\codeup\算法笔记3.6\C字符串的查找删除\Debug\C字符串的查找删除.pdb

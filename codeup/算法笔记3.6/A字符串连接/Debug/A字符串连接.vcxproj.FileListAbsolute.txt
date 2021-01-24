@@ -1,0 +1,2 @@
+E:\PAT\A字符串连接\Debug\A字符串连接.exe
+E:\PAT\A字符串连接\Debug\A字符串连接.pdb
