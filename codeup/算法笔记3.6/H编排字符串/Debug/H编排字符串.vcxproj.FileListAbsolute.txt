@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记3.6\H编排字符串\Debug\H编排字符串.exe
+E:\PAT\codeup\算法笔记3.6\H编排字符串\Debug\H编排字符串.pdb

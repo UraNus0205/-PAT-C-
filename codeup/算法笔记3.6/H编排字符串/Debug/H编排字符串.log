@@ -1,0 +1,4 @@
+﻿  H编排字符串.cpp
+E:\PAT\codeup\算法笔记3.6\H编排字符串\H编排字符串.cpp(22,31): warning C4018: “<”: 有符号/无符号不匹配
+E:\PAT\codeup\算法笔记3.6\H编排字符串\H编排字符串.cpp(31,31): warning C4018: “<”: 有符号/无符号不匹配
+  H编排字符串.vcxproj -> E:\PAT\codeup\算法笔记3.6\H编排字符串\Debug\H编排字符串.exe
