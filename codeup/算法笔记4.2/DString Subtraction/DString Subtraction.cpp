@@ -1,14 +1,24 @@
-﻿#include <iostream>
-#include <cstring>
+﻿#include<cstdio>
+#include<map>
+#include<iostream>
+#include<string>
 using namespace std;
-int main()
-{
-    char c1[10010];
-    while (gets_s(c1))
-    {
-        char c2[10010];
-        gets_s(c2);
-    }
-    return 0;
-}
 
+int main() {
+	
+	string s1, s2;
+	while (getline(cin, s1)&&getline(cin,s2))
+	{
+		map<char, int> mp;
+		for (int i = 0; i < s2.size(); i++)
+		{
+			mp[s2[i]] = 1;
+		}
+		for (int i = 0; i < s1.size(); i++)
+		{
+			if (mp[s1[i]] == 0) cout << s1[i];
+		}
+		cout << endl;
+	}
+	return 0;
+}

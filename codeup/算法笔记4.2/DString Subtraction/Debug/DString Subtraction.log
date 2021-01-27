@@ -1,0 +1,4 @@
+﻿  DString Subtraction.cpp
+E:\PAT\codeup\算法笔记4.2\DString Subtraction\DString Subtraction.cpp(13,21): warning C4018: “<”: 有符号/无符号不匹配
+E:\PAT\codeup\算法笔记4.2\DString Subtraction\DString Subtraction.cpp(17,21): warning C4018: “<”: 有符号/无符号不匹配
+  DString Subtraction.vcxproj -> E:\PAT\codeup\算法笔记4.2\DString Subtraction\Debug\DString Subtraction.exe
