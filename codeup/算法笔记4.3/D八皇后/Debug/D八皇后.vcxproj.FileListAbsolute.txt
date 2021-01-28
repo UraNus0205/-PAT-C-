@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记4.3\D八皇后\Debug\D八皇后.exe
+E:\PAT\codeup\算法笔记4.3\D八皇后\Debug\D八皇后.pdb

@@ -1,38 +1,40 @@
 #include <iostream>
-
+#include <cmath>
 using namespace std;
-
+const int maxn = 11;
+int n, P[maxn],sum=0;
+bool hashTable[maxn] = { false };
+void generateP(int index)
+{
+	if (index == n + 1)
+	{
+		bool flag = true;
+		for (int i = 1; i <= n; i++)
+		{
+			for (int j = i + 1; j <= n; j++)
+			{
+				if (abs(i - j) == abs(P[i] - P[j]))
+					flag = false;
+			}
+		}
+		if (flag)
+			sum++;
+		return;
+	}
+	for (int x = 1; x <= n; x++)
+	{
+		if (hashTable[x] == false)
+		{
+			P[index] = x;
+			hashTable[x] = true;
+			generateP(index + 1);
+			hashTable[x] = false;
+		}
+	}
+}
 int main()
 {
-    string s;
-    while(cin>>s)
-    {
-        int N = s.size();
-        int n1,n2,n3;
-        n1=n3=(N+2)/3;
-        n2=N+2-n1-n3;
-        for(int i=0;i<n3;i++)
-        {
-            if(i!=n3-1)
-            {
-                for(int j=0;j<n2;j++)
-                {
-                    if(j==0) cout<<s[i+j];
-                    else if(j==n2-1) cout<<s[N-1-i];
-                    else cout<<" ";
-                }
-                cout<<endl;
-            }
-            else
-            {
-                for(int j=0;j<n2;j++)
-                {
-                    cout<<s[j+n3-1];
-                }
-                cout<<endl;
-            }
-        }
-    }
-
-    return 0;
+	int n = 8;
+	generateP(1);
+	return 0;
 }

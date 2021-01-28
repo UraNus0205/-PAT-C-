@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记4.3\N皇后—回溯法\Debug\N皇后—回溯法.exe
+E:\PAT\codeup\算法笔记4.3\N皇后—回溯法\Debug\N皇后—回溯法.pdb
