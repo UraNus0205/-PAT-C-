@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记4.3\B数列\Debug\B数列.exe
+E:\PAT\codeup\算法笔记4.3\B数列\Debug\B数列.pdb
