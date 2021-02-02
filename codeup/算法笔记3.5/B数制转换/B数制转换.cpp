@@ -19,7 +19,10 @@ int main()
 		if (m == 0)cout << "0";
 		int k = 0;
 		while (m) {
-			if (m % b > 9) { str[k++] = 'A' + m % b - 10; }
+			if (m % b > 9) 
+			{
+				str[k++] = 'A' + m % b - 10; 
+			}
 			else str[k++] = '0' + m % b;
 			m /= b;
 		}
