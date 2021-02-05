@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记4.4\DRepair the Wall\Debug\DRepair the Wall.exe
+E:\PAT\codeup\算法笔记4.4\DRepair the Wall\Debug\DRepair the Wall.pdb
