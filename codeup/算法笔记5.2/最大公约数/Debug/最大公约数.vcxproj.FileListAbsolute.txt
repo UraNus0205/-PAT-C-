@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记5.2\最大公约数\Debug\最大公约数.exe
+E:\PAT\codeup\算法笔记5.2\最大公约数\Debug\最大公约数.pdb
