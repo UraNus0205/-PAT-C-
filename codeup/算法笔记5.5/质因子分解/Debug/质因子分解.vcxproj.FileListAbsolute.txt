@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记5.5\质因子分解\Debug\质因子分解.exe
+E:\PAT\codeup\算法笔记5.5\质因子分解\Debug\质因子分解.pdb
