@@ -239,7 +239,262 @@ int main()
 1 2
 ```
 
-## 6.4 map的常用用法详解
+## 6.2  set的常见用法详解
+
+### 1.set的定义
+
+单独定义一个`set`：
+
+```C++
+set<typename> name;
+
+set<int> name;
+set<double> name;
+set<char> name;
+set<int> a[100];
+```
+
+### 2.set容器内元素的访问
+
+`set`只能通过迭代器(iterator)访问：
+
+```C++
+set<typename>::iterator it;
+```
+
+这样就得到了迭代器`it`，并且可以通过`*it`来访问`set`里的元素。
+
+由于**除了`vector`和`string`之外的STL容器都不支持`*(it+i)`的访问方式**，因此只能按如下方式枚举：
+
+```C++
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+
+int main()
+{
+    set<int> st;
+    st.insert(3);
+    st.insert(5);
+    st.insert(2);
+    st.insert(3);
+    for (set<int>::iterator it = st.begin(); it != st.end(); it++)
+    {
+        cout << *it;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+2 3 5
+```
+
+可以发现，`set`内的元素自动递增排序，且自动去重。
+
+### 3.set常用函数实例解析
+
+#### (1)insert()
+
+`insert(x)`可以将x插入set容器中，且自动递增排序并去重，时间复杂度为`O(logN)`.
+
+#### (2)find()
+
+`find(value)`返回set中对应值为value的迭代器，时间复杂度为`O(logN)`.
+
+```C++
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+
+int main()
+{
+    set<int> st;
+    for (int i = 3; i <= 5; i++)
+    {
+        st.insert(i);
+    }
+    set<int>::iterator it = st.find(4);
+    cout << *it;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+4
+```
+
+#### (3)erase()
+
+##### ①删除单个元素
+
+删除单个元素有两种方法：
+
++ `st.erase(it)`,it为所需要删除元素的迭代器。时间复杂度为`O(1)`.示例如下：
+
+  ```C++
+  #include <iostream>
+  #include <set>
+  
+  using namespace std;
+  
+  
+  int main()
+  {
+      set<int> st;
+      for (int i = 3; i <= 5; i++)
+      {
+          st.insert(i);
+      }
+      st.erase(st.find(4));
+      for (set<int>::iterator it = st.begin(); it != st.end(); it++)
+      {
+          cout << *it;
+      }
+      return 0;
+  }
+  ```
+
+  输出结果：
+
+  ```C++
+  3 5
+  ```
+
++ `st.erase(value)`,value为所需要删除元素的值。时间复杂度为O(logN).示例如下：
+
+  ```C++
+  #include <iostream>
+  #include <set>
+  
+  using namespace std;
+  
+  
+  int main()
+  {
+      set<int> st;
+      for (int i = 3; i <= 5; i++)
+      {
+          st.insert(i);
+      }
+      st.erase(4);
+      for (set<int>::iterator it = st.begin(); it != st.end(); it++)
+      {
+          cout << *it;
+      }
+      return 0;
+  }
+  ```
+
+  输出结果：
+
+  ```C++
+  3 5
+  ```
+
+##### ②删除一个区间内的所有元素
+
+`st.erase(first,last)`可以删除一个区间内的所有元素，其中first为删除所需要删除区间的起始迭代器，而last则为所需要删除区间的末尾迭代器的**下一个**地址，即删除`[first,last)`。时间复杂度为`O(last-first)`.示例如下：
+
+```C++
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+
+int main()
+{
+    set<int> st;
+    for (int i = 3; i <= 10; i++)
+    {
+        st.insert(i);
+    }
+    set<int>::iterator it = st.find(5);
+    st.erase(it,st.end());
+    for (set<int>::iterator it = st.begin(); it != st.end(); it++)
+    {
+        cout << *it;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+3 4
+```
+
+#### (4)size()
+
+`size()`用来获得set内元素的个数，时间复杂度为`O(1)`.示例如下：
+
+```C++
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+
+int main()
+{
+    set<int> st;
+    for (int i = 3; i <= 10; i++)
+    {
+        st.insert(i);
+    }
+    set<int>::iterator it = st.find(5);
+    cout << st.size();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+8
+```
+
+#### (5)clear()
+
+`clear()`用来清空set中的所有元素，时间复杂度为`O(N)`.示例如下：
+
+```C++
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+
+int main()
+{
+    set<int> st;
+    for (int i = 3; i <= 10; i++)
+    {
+        st.insert(i);
+    }
+    st.clear();
+    cout << st.size();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+0
+```
+
+## 6.4 map的常见用法详解
 
 ### 1.map的定义
 
