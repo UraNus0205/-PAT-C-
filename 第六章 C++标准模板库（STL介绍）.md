@@ -1,5 +1,244 @@
 # 第六章 C++标准模板库（STL介绍）
 
+
+
+## 6.1 vector的常见用法详解
+
+vector即“变长数组”。
+
+### 1.vector的定义
+
+单独定义一个vector：
+
+```C++
+vector<typename> name;
+```
+
+下面是一些简单的例子：
+
+```C++ 
+vector<int> name;
+vector<double> name;
+vector<char> name;
+vector<node> name;
+vector<vector<int> > name;
+```
+
+### 2.vector容器内元素的访问
+
+#### （1）通过下标访问
+
+对一个定义为`vector<typename> vi`的vector容器，直接访问`vi[index]`即可。 
+
+#### （2）通过迭代器访问
+
+迭代器（iterator）可以理解为一种类似指针的东西，其定义为：
+
+```C++
+vector<typename>::iterator it;
+```
+
+这样就得到了迭代器`it`，并且可以通过`*it`来访问vector里的元素。
+
+例如有这样的一个vector容器：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vi.begin()为取vi的首元素地址，而it指向这个地址。
+    vector<int>::iterator it = vi.begin();
+    for (int i = 0; i < 5; i++)
+    {
+        cout << *(it + i);//输出vi[i]
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```c++
+1 2 3 4 5
+```
+
+从这里可以看出`vi[i]`和`*(vi.begin()+i)`是等价的。
+
+上面说到了`begin()`函数的作用为取`vi`的首元素地址，那么这里还要提到`end()`函数。`end()`不是取`vi`的尾元素地址，而是**取尾元素地址的下一个地址**。`end()`作为迭代器末尾标志，不存储任何元素。
+
+除此之外，迭代器还实现了两种自加操作：`++it`和`it++`,于是有了另一种遍历`vector`中元素的写法：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vector的迭代器不支持it<vi.end()的写法，因此循环条件只能用it!=vi.end()
+    vector<int>::iterator it = vi.begin();
+    for (vector<int>::iterator it = vi.begin(); it != vi.end(); it++)
+    {
+        cout << *it;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```c++
+1 2 3 4 5
+```
+
+在常用STL容器中，只有在vector和string中，才允许使用`vi.begin()+3`这种迭代器加上整数的写法。
+
+### 3.vector常用函数实例解析
+
+#### （1）clear()
+
+`clear()`用来清空vector中的所有元素，时间复杂度为`O(N)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vector的迭代器不支持it<vi.end()的写法，因此循环条件只能用it!=vi.end()
+    vi.clear();
+    cout << vi.size();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+0
+```
+
+#### （2）insert()
+
+`insert(it,x)`用来向vector的任意迭代器it处插入一个元素x,时间复杂度为`O(N)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vector的迭代器不支持it<vi.end()的写法，因此循环条件只能用it!=vi.end()
+    vi.insert(vi.begin() + 2, -1);
+    for (int i = 0; i < vi.size(); i++)
+    {
+        cout << vi[i];
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+1 2 -1 3 4 5
+```
+
+#### （3）erase()
+
+`erase()`有两种用：删除单个元素、删除一个区间内的所有元素，时间复杂度为`O(N)`.
+
+##### ①删除单个元素：
+
+`erase(it)`即删除迭代器为it处的元素。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vector的迭代器不支持it<vi.end()的写法，因此循环条件只能用it!=vi.end()
+    vi.erase(vi.begin() + 2);
+    for (int i = 0; i < vi.size(); i++)
+    {
+        cout << vi[i];
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+1 2 4 5
+```
+
+##### ②删除一个区间内的所有元素：
+
+`erase(first,last)`即删除`[first,last)`内的所有元素。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<int> vi;
+    for (int i = 1; i <= 5; i++)
+    {
+        vi.push_back(i);
+    }
+    //vector的迭代器不支持it<vi.end()的写法，因此循环条件只能用it!=vi.end()
+    vi.erase(vi.begin() + 2,vi.end());
+    for (int i = 0; i < vi.size(); i++)
+    {
+        cout << vi[i];
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+1 2
+```
+
 ## 6.4 map的常用用法详解
 
 ### 1.map的定义

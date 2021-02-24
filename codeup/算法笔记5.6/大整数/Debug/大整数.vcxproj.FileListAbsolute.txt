@@ -1,0 +1,2 @@
+E:\PAT\codeup\算法笔记5.6\大整数\Debug\大整数.exe
+E:\PAT\codeup\算法笔记5.6\大整数\Debug\大整数.pdb

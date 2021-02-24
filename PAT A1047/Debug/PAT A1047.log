@@ -1,0 +1,4 @@
+﻿  PAT A1047.cpp
+E:\PAT\PAT A1047\PAT A1047.cpp(37,27): warning C4018: “<”: 有符号/无符号不匹配
+E:\PAT\PAT A1047\PAT A1047.cpp(20,15): warning C4101: “c”: 未引用的局部变量
+  PAT A1047.vcxproj -> E:\PAT\PAT A1047\Debug\PAT A1047.exe
