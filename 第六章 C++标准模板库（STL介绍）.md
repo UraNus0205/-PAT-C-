@@ -494,6 +494,489 @@ int main()
 0
 ```
 
+## 6.3 string的常见用法详解
+
+### 1.string的定义
+
+定义`string`的方式跟基本数据类型相同，只需要在`string`后跟上变量名即可：
+
+```C++
+string str = "abcd";
+```
+
+### 2.string中内容的访问
+
+#### (1)通过下标访问
+
+一般可以直接像字符数组那样去访问`string`：
+
+```C++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int main()
+{
+    string str = "abcd";
+    for (int i = 0; i < str.length(); i++)
+    {
+        cout << str[i];
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcd
+```
+
+如果要是如何输出整个字符串，只能用`cin`和`cout`:
+
+```C++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int main()
+{
+    string str;
+    cin >> str;
+    cout << str;
+    return 0;
+}
+```
+
+也可以使用`printf`来输出`string`，即用`c_str()`将`string`类型转换为字符数组进行输出，示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "abcd";
+    printf("%s\n", str.c_str());
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcd
+```
+
+#### (2)通过迭代器访问
+
+一般仅通过（1）即可满足访问的要求，但是有些函数比如`insert()`和`erase()`则要求以迭代器为参数。
+
+由于`string`不像其他STL容器那样需要参数，因此可以直接如下定义：
+
+```C++
+string::iterator it
+```
+
+这样就得到了迭代器`it`，并且可以通过`*it`来访问`string`里的每一位：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "abcd";
+    string::iterator it;
+    for(it=str.begin();it!=str.end();it++)
+    {
+        cout << *it;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcd
+```
+
+最后指出，**`string`和`vector`一样，支持直接对迭代器进行加减某个数字，如str.begin()+3的写法是可行的。**
+
+### 3.string常用函数实例解析
+
+#### (1)operator+=
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "abc", str2 = "xyz", str3;
+    str3 = str1 + str2;
+    str1 += str2;
+    cout << str1 << endl;
+    cout << str3 << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcxyz
+abcxyz
+```
+
+#### (2)compare operator
+
+两个`string`类型可以直接使用==、！=、<、>、<=、>=比较大小，比较规则是字典序。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "aa", str2 = "aaa", str3 = "abc", str4 = "xyz";
+    if (str1 < str2) cout << "str1 < str2" <<endl;
+    if (str1 != str3) cout << "str1 != str3" << endl;
+    if (str4 >= str3) cout << "str4 >= str3" << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+str1 < str2
+str1 != str3
+str4 >= str3
+```
+
+#### (3)length()/size()
+
+实例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "abcxyz";
+    cout << str1.length() << " " << str1.size();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+6 6
+```
+
+#### (4)insert()
+
+`string`的`insert()`函数有多种写法，这里给出常用的写法，时间复杂度为`O(N)`.
+
+##### ①insert(pos,string),在pos号位置插入字符串string。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "abcxyz", str2 = "opq";
+    cout << str1.insert(3,str2);
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcopqxyz
+```
+
+##### ②insert(it,it2,it3),it为原字符串的欲插入位置，it2和it3为待插字符串的首尾迭代器，用来标志串[it2,it3)将被插在it的位置上。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "abcxyz", str2 = "opq";
+    str1.insert(str1.begin() + 3, str2.begin(), str2.end() - 1);
+    cout << str1;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcopxyz
+```
+
+#### (5)erase()
+
+以下两种用法的时间复杂度均为`O(N)`.
+
+##### ①删除单个元素
+
+`str.erase(it)`用于删除单个元素，`it`为需要删除的元素的迭代器。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "abcdefg";
+    str.erase(str.begin() + 4);
+    cout << str;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+abcdfg
+```
+
+##### ②删除一个区间内的所有元素
+
+删除一个区间内的所有元素有两种方法：
+
++ `str.erase(first,last)`,即删除`[first,last)`.
+
+  示例如下：
+
+  ```C++
+  #include <iostream>
+  #include <string>
+  #include <stdio.h>
+  using namespace std;
+  
+  
+  int main()
+  {
+      string str = "abcdefg";
+      str.erase(str.begin() + 4,str.end()-1);
+      cout << str;
+      return 0;
+  }
+  ```
+
+  输出结果：
+
+  ```C++
+  abcdg
+  ```
+
++ `str.erase(pos,length)`，其中pos为需要开始删除的起始位置，length为删除的字符个数。
+
+  示例如下：
+
+  ```C++
+  #include <iostream>
+  #include <string>
+  #include <stdio.h>
+  using namespace std;
+  
+  
+  int main()
+  {
+      string str = "abcdefg";
+      str.erase(4, 2);
+      cout << str;
+      return 0;
+  }
+  ```
+
+  输出结果：
+
+  ```C++
+  abcdg
+  ```
+
+#### (6)clear()
+
+`clear()`用以清空string中的数据，时间复杂度一般为`O(1)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "abcdefg";
+    str.clear();
+    cout << str.size();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+0
+```
+
+#### (7)substr()
+
+`substr(pos,len)`返回从pos号位开始、长度为len的子串，时间复杂度为`O(N)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "abcdefg";
+    cout << str.substr(4,2);
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+ef
+```
+
+#### (8)string::npos
+
+`string::npos`是一个常数，其本身的值是-1，但由于是`unsigned_int`类型，因此也可以认为是`unsigned_int`类型的最大值。`string::npos`用以作为`find`函数失配时的返回值。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str = "This is an apple.";
+    int pos = 0, x;
+    while ((x=str.find(" ",pos)) != string::npos)
+    {
+        cout << x << endl;
+        pos = x + 1;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+4
+7
+10
+```
+
+#### (9)find()
+
+`str.find(str2)`,当`str2`时`str`的子串时，返回其在`str`中第一次出现的位置；如果`str2`不是`str`的子串，那么返回`string::npos`.
+
+`str.find(str2,pos)`,从`str`的`pos`号位开始匹配`str2`，返回值与上相同。
+
+时间复杂度为`O(nm)`,n和m分别为`str`和`str2`的长度。
+
+#### (10)replace()
+
+`str.replace(pos,len,str2)`把`str`从`pos`号位开始、长度为`len`的子串替换为`str2`.
+
+`str.replace(it1,it2,str2)`把`str`的迭代器`[it1,it2)`范围的子串替换为`str2`.
+
+时间复杂度为`O(str.length())`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+
+int main()
+{
+    string str1 = "This is an apple.";
+    string str2 = "This is an apple.";
+    cout << str1.replace(2, 7, " ") << endl;
+    cout << str2.replace(str2.begin(), str2.end() - 4, " ") << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+Th n apple.
+ ple.
+```
+
+
+
 ## 6.4 map的常见用法详解
 
 ### 1.map的定义
@@ -759,4 +1242,4 @@ int main() {
 
 ③字符和字符串的映射也可能会用到。
 
-PS：map的键和值是唯一的，若一个键对应多个值，就只能使用multimap。
+PS：map的键和值是唯一的，若一个键对应多个值，就只能使用multimap。 
