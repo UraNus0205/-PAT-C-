@@ -1243,3 +1243,234 @@ int main() {
 ③字符和字符串的映射也可能会用到。
 
 PS：map的键和值是唯一的，若一个键对应多个值，就只能使用multimap。 
+
+## 6.5 queue的常见用法详解
+
+queue翻译为队列，在STL中主要则是实现了一个先进先出的容器。
+
+### 1.queue的定义
+
+```C++
+#include <queue>
+queue <typename> name;
+```
+
+### 2.queue容器内元素的访问
+
+由于queue本身就是一种先进先出的限制性数据结构，因此在STL中只能通过`front()`来访问队首元素，或是通过`back()`来访问队尾元素。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <queue>
+
+using namespace std;
+int main()
+{
+    queue<int> q;
+    for (int i = 1; i <= 5; i++)
+    {
+        q.push(i);
+    }
+    cout << q.front() << q.back();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+1 5
+```
+
+### 3.queue常用函数实例解析
+
+#### (1)push()
+
+`push(x)`将`x`进行入队，时间复杂度为`O(1)`.
+
+#### (2)front()、back()
+
+`front()、back()`可分别获得队首元素和队尾元素，时间复杂度为`O(1)`.
+
+#### (3)pop()
+
+`pop()`令队首元素出队，时间复杂度为`O(1)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <queue>
+
+using namespace std;
+int main()
+{
+    queue<int> q;
+    for (int i = 1; i <= 5; i++)
+    {
+        q.push(i);
+    }
+    for (int i = 1; i <= 3; i++)
+    {
+        q.pop();
+    }
+    cout << q.front() ;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+4
+```
+
+#### (4)empty()
+
+`empty()`检测`queue`是否为空，返回`true`则空，返回`false`则非空，时间复杂度为`O(1)`.
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <queue>
+
+using namespace std;
+int main()
+{
+    queue<int> q;
+    for (int i = 1; i <= 5; i++)
+    {
+        q.push(i);
+    }
+    for (int i = 1; i <= 4; i++)
+    {
+        q.pop();
+    }
+    cout << q.empty() << endl;
+    q.pop();
+    cout << q.empty() << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+0
+1
+```
+
+#### (5)size()
+
+`size()`返回`queue`内元素的个数，时间复杂度为`O(1)`.
+
+### 4.queue的常见用途
+
+当需要实现广度优先搜索时，可以不用自己手动实现一个队列，而是用`queue`作为代替，以提高程序的准确性。
+
+使用`front()`和`back()`函数前，必须用`empty()`判断队列是否为空，以免因队空出现错误。
+
+## 6.6 priority_queue的常见用法详解
+
+priority_queue又称为优先队列，其底层使用堆进行实现的。在优先队列中，队首元素一定是当前队列中优先级最高的那一个。
+
+### 1.priority_queue的定义
+
+```c++
+#include<queue>
+
+priority<typename> name;
+```
+
+### 2.priority_queue容器内元素的访问
+
+和队列不同的是，优先队列`front()`函数和`back()`函数,而只能通过`top()`函数来访问队首元素。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main()
+{
+    priority_queue<int> q;
+    q.push(4);
+    q.push(5);
+    q.push(3);
+    cout << q.top();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+5
+```
+
+### 3.priority_queue常用函数实例解析
+
+#### (1)push()
+
+`push(x)`令`x`入队，时间复杂度为`O(logN)`.
+
+#### (2)top()
+
+`top()`返回队首元素，时间复杂度为`O(1)`.
+
+#### (3)pop()
+
+`pop()`令队首元素出队，时间复杂度为`O(logN)`.
+
+#### (4)empty()
+
+`empty()`检测优先队列是否为空，时间复杂度为`O(1)`.
+
+#### (5)size()
+
+`size()`返回优先队列内元素的个数，时间复杂度为`O(1)`.
+
+### 4.priority_queue内元素优先级的设置
+
+#### (1)基本数据类型的优先级设置
+
+对基本数据类型来说，以下两种优先队列的定义是等价的：
+
+```C++
+priority_queue<int> q;
+priority_queue<int,vector<int>,less<int> > q;
+```
+
+`less<int>`表示数字大的优先级越大；`greater<int>`表示数字小的优先级越大。
+
+#### (2)结构体的优先级设置
+
+本节最开头举了一个水果的例子，可以对水果的名称和价格建立一个结构体，如下所示：
+
+```c++
+struct fruit{
+	string name;
+	int price;
+};
+```
+
+现在希望按水果的价格高的为优先级高，就需要重载小于号“<”。
+
+```C++
+struct fruit{
+	string name;
+	int price;
+	friend bool operator <(fruit f1,fruit f2)
+	{
+		return f1.price<f2.price;
+	}
+};
+
+priority_queue<fruit> q;
+```
