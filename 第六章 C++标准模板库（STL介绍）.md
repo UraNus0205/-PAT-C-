@@ -1474,3 +1474,348 @@ struct fruit{
 
 priority_queue<fruit> q;
 ```
+
+## 6.7 stack的常见用法详解
+
+stack翻译为栈，是STL中一个后进先出的容器。
+
+### 1.stack的定义
+
+```C++
+#include <stack>
+stack<typename> name;
+```
+
+### 2.stack容器内元素的访问
+
+在STL中只能通过`top()`来访问栈顶元素。
+
+```C++
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main()
+{
+    stack<int> sk;
+    for (int i = 1; i <= 5; i++)
+    {
+        sk.push(i);
+    }
+    cout << sk.top();
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+5
+```
+
+### 3.stack常用函数实例解析
+
+#### (1)push()
+
+#### (2)top()
+
+#### (3)pop()
+
+#### (4)size()
+
+#### (5)empty()
+
+## 6.8 pair的常见用法
+
+pair可以看做一个内部有两个元素的结构体，且这两个结构体的类型可以指定。
+
+### 1.pair的定义
+
+```C++
+#include <map>
+
+pair<typename1,typename2> name;
+```
+
+如果想在定义`pair`时进行初始化，只需要跟上一个小括号，里面填两个想要初始化的元素即可：
+
+```C++
+pair<string,int> p("haha",5);
+```
+
+临时构建一个`pair`有如下两种方法：
+
+```C++
+pair<string,int>("haha",5);
+make_pair("haha",5);
+```
+
+### 2.pair中元素的访问
+
+`pair`中只有两个元素，分别是first和second，只需要按正常结构体的方式去访问即可。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    pair<string, int>p;
+    p.first = "haha";
+    p.second = 5;
+    cout << p.first << " " << p.second << endl;
+    p = make_pair("haha", 4);
+    cout << p.first << " " << p.second << endl;
+    p = pair<string,int>("haha", 3);
+    cout << p.first << " " << p.second << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+haha 5
+haha 4
+haha 3
+```
+
+### 3.pair常用函数实例解析
+
+#### 比较操作数
+
+两个`pair`类型数据可以直接使用比较运算符比较大小，比较规则是先以`first`的大小为标准，相等时再以`second`的大小为标准。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    pair<int, int>p1(5,10);
+    pair<int, int>p2(5, 15);
+    pair<int, int>p3(15, 10);
+    if (p1 < p3) cout << "1 < 3" << endl;
+    if (p1 <= p3) cout << "1 <= 3" << endl;
+    if (p1 < p2)cout << "1 < 2" << endl;
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+1 < 3
+1 <= 3
+1 < 2
+```
+
+### 4.pair的常见用途
+
+#### ①用来代替二元结构体及其构造函数，可以节约时间。
+
+#### ②作为map的键值对来进行插入。
+
+```C++
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main()
+{
+    map<string, int>mp;
+    mp.insert(make_pair("heihei", 5));
+    mp.insert(pair<string, int>("haha", 10));
+    for (map<string, int>::iterator it = mp.begin(); it != mp.end(); it++)
+    {
+        cout << it->first << " " << it->second << endl;
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```
+haha 10
+heihei 5;
+```
+
+## 6.9 algorithm头文件下的常用函数
+
+### 1.max(),min()和abs()
+
+`max(x,y)`和`min(x,y)`分别返回x和y中的最大值和最小值，且参数必须是两个。如果想要返回`x、y、z`三者的最大值，可以用`max(x,max(y,z))`的写法。
+
+`abs(x)`返回`x`的绝对值。注意：`x`必须是整数，浮点型的绝对值请用`math`头文件下的`fabs`.
+
+### 2.swap()
+
+`swap(x,y)`交换`x`和`y`的值。
+
+### 3.reverse()
+
+`reverse(it1,it2)`可以将数组指针在`[it1,it2)`之间的元素或容器的迭代器在`[it1,it2)`范围内的元素进行翻转。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <algorithm>
+using namespace std
+int main{
+    int a[10]={1,2,3,4,5,6};
+    reverse(a,a+4);
+    for(int i=0;i<6;i++)
+    {
+        cout<<a[i];
+    }
+    return 0;
+}
+```
+
+输出结果：
+
+```C++
+4 3 2 1 5 6
+```
+
+### 4.next_permutation()
+
+`next_permutation()`给出一个序列在全排列中的**下一个序列**。
+
+例如，当`n=3`时的全排列为
+
+```C++
+123
+132
+213
+231
+312
+321
+```
+
+这样231的下一个序列就是312。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int a[10] = { 1,2,3 };
+	do {
+		cout << a[0] << a[1] << a[2] << endl;
+	}while (next_permutation(a, a + 3));
+	return 0;
+}
+```
+
+输出结果：
+
+```c++
+123
+132
+213
+231
+312
+321
+```
+
+### 5.fill()
+
+`fill()`可以把数组或容器中的某一段区间赋为某个相同的值。和`memset`不同，这里的赋值可以是数组类型对应范围中的任意值。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int a[10] = { 1,2,3,4,5};
+	fill(a, a + 7, 3);
+	for (int i = 0; i < 10; i++)
+	{
+		cout << a[i];
+	}
+	return 0;
+}
+```
+
+输出结果：
+
+```C++
+3333333000
+```
+
+### 6.sort()
+
+`sort()`就是用来排序的函数，根据具体情形使用不同的排序方法。
+
+### 7.lower_bound()和upper_bound()
+
+`lower_bound()`和`upper_bound()`需要在一个有序数组或容器中。
+
+`lower_bound(first,last,val)`用来寻找在数组或容器的`[first,last)`范围内**第一个值大于等于**`val`的元素的位置，如果是数组，返回该位置的指针；如果是容器，返回该位置的迭代器。
+
+`upper_bound(first,last,val)`用来寻找在数组或容器的`[first,last)`范围内**第一个值大于**`val`的元素的位置，如果是数组，返回该位置的指针；如果是容器，返回该位置的迭代器。
+
+若数组或容器中没有需要寻找的元素，则返回可以插入该元素的位置的指针或迭代器。
+
+示例如下：
+
+```C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int a[10] = { 1,2,2,3,3,3,5,5,5,5};
+	int* lowerPos = lower_bound(a, a + 10, -1);
+	int* upperPos = upper_bound(a, a + 10, -1);
+	cout << lowerPos - a << " " << upperPos - a << endl;
+
+
+	lowerPos = lower_bound(a, a + 10, 1);
+	upperPos = upper_bound(a, a + 10, 1);
+	cout << lowerPos - a << " " << upperPos - a << endl;
+
+	lowerPos = lower_bound(a, a + 10, 3);
+	upperPos = upper_bound(a, a + 10, 3);
+	cout << lowerPos - a << " " << upperPos - a << endl;
+
+	lowerPos = lower_bound(a, a + 10, 4);
+	upperPos = upper_bound(a, a + 10, 4);
+	cout << lowerPos - a << " " << upperPos - a << endl;
+
+	lowerPos = lower_bound(a, a + 10, 6);
+	upperPos = upper_bound(a, a + 10, 6);
+	cout << lowerPos - a << " " << upperPos - a << endl;
+
+	return 0;
+}
+```
+
+输出结果：
+
+```C++
+0 0
+0 1
+3 6
+6 6
+10 10
+```
+
